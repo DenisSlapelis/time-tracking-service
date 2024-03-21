@@ -24,4 +24,5 @@ export const localEnvs = {
     PORT: Number(getEnvironmentVariable('PORT') ?? 8000),
     CORS_ORIGIN: getEnvironmentVariable('CORS_ORIGIN'),
     JWT_PRIVATE_KEY: getEnvironmentVariable('JWT_PRIVATE_KEY'),
+    SOURCE_EMAIL: getEnvironmentVariable('SOURCE_EMAIL'),
 };

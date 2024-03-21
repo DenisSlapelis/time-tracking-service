@@ -25,7 +25,11 @@ export class AWSEmailService implements EmailService {
             Message: {
                 Body: {
                     Text: {
+                        Data: 'Relatório de Horas Trabalhadas',
+                    },
+                    Html: {
                         Data: data,
+                        Charset: 'utf-8',
                     },
                 },
                 Subject: {

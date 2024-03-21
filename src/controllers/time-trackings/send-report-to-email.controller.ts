@@ -8,7 +8,7 @@ export class SendReportToEmailController {
 
     handle = async (req: Request, res: Response) => {
         try {
-            const result = await this.useCase.handle('wollt', '2024-03');
+            const result = await this.useCase.handle('wollt', '2024-03', ['denis.slapelis.aws.2024@gmail.com']);
 
             res.status(STATUS_CODE.CREATED).json(result);
         } catch (error: any) {
