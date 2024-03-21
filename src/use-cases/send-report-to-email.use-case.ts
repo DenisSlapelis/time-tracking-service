@@ -10,17 +10,21 @@ export class SendReportToEmailUseCase {
         private useCase: GetTrackingsByMonthUseCase
     ) {}
 
-    handle = async (username: string, reportDate: string, destination: Array<string>) => {
+    handle = async (username: string, date: any, destination: Array<string>) => {
+        const parseDate = dayjs(date).format('YYYY-MM');
+        const lastMonth = dayjs().add(-1, 'month').format('YYYY-MM');
+        const reportDate = parseDate == 'Invalid Date' ? lastMonth : parseDate;
+
         const data = await this.useCase.handle(username, reportDate);
 
-        const obj = {
+        const params = {
             destination,
             source: env.getValue('SOURCE_EMAIL'),
             data: this.template(reportDate, data),
             subject: `Mensal report (${dayjs(reportDate).format('MM/YYYY')})`,
         };
 
-        await this.emailService.send(obj);
+        await this.emailService.send(params);
     };
 
     private getTime = (str: string) => {

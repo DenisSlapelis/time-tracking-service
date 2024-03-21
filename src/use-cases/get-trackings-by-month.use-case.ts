@@ -4,9 +4,13 @@ import dayjs from 'dayjs';
 export class GetTrackingsByMonthUseCase {
     constructor(private repository: TrackingRepository) {}
 
-    handle = async (username: string, date?: string): Promise<any> => {
+    handle = async (username: string, date: any): Promise<any> => {
+        const parseDate = dayjs(date).format('YYYY-MM');
         const lastMonth = dayjs().add(-1, 'month').format('YYYY-MM');
-        const result = await this.repository.getTrackingsByMonth(username, date || lastMonth);
+
+        const reportDate = parseDate == 'Invalid Date' ? lastMonth : parseDate;
+
+        const result = await this.repository.getTrackingsByMonth(username, reportDate);
 
         let monthWorkedMinutes = 0;
 

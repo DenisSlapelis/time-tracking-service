@@ -4,9 +4,13 @@ import dayjs from 'dayjs';
 export class GetTrackingsByDayUseCase {
     constructor(private repository: TrackingRepository) {}
 
-    handle = async (username: string, date?: string) => {
+    handle = async (username: string, date: any) => {
+        const parseDate = dayjs(date).format('YYYY-MM-DD');
         const currentDate = dayjs().format('YYYY-MM-DD');
-        const { trackings, referenceDate } = await this.repository.getTrackingsByDay(username, date || currentDate);
+
+        const reportDate = parseDate == 'Invalid Date' ? currentDate : parseDate;
+
+        const { trackings, referenceDate } = await this.repository.getTrackingsByDay(username, reportDate);
 
         const workedHours = this.calculateWorkedHours(trackings);
 

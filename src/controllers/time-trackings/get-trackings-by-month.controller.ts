@@ -8,7 +8,10 @@ export class GetTrackingsByMonthController {
 
     handle = async (req: Request, res: Response) => {
         try {
-            const result = await this.useCase.handle('wollt', '2024-03');
+            const { date } = req.query;
+            const usename = 'wollt';
+
+            const result = await this.useCase.handle(usename, date);
 
             res.status(STATUS_CODE.OK).json(result);
         } catch (error: any) {
