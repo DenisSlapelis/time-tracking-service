@@ -24,7 +24,7 @@ export class GetTrackingsByDayUseCase {
     calculateWorkedHours = (trackings: Array<any>) => {
         let totalMinutes = 0;
 
-        trackings.forEach((tracking) => {
+        trackings?.forEach((tracking) => {
             const checkin = dayjs(tracking.checkin);
             const checkout = dayjs(tracking.checkout);
 
@@ -37,6 +37,8 @@ export class GetTrackingsByDayUseCase {
     };
 
     convertToHours = (minutes: number) => {
+        if (minutes == 0) return '';
+
         const restMinutes = minutes % 60;
         const hours = Math.floor(minutes / 60);
 
@@ -46,7 +48,7 @@ export class GetTrackingsByDayUseCase {
     };
 
     formatTrackings = (trackings: Array<any>) => {
-        return trackings.map((item) => {
+        return trackings?.map((item) => {
             const result = {
                 checkin: dayjs(item.checkin).format('DD/MM/YYYY - HH:mm'),
             };
@@ -54,6 +56,6 @@ export class GetTrackingsByDayUseCase {
             if (item.checkout) result['checkout'] = dayjs(item.checkout).format('DD/MM/YYYY - HH:mm');
 
             return result;
-        });
+        }) || [];
     };
 }

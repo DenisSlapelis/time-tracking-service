@@ -1,0 +1,14 @@
+{
+    "default": {
+        "formatOptions": {
+            "snippetInterface": "async-await"
+        },
+        "require": [
+            "tests/bdd/steps/"
+        ],
+        "paths": [
+            "tests/bdd/features/"
+        ],
+        "dryRun": false
+    }
+}
