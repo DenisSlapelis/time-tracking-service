@@ -1,15 +1,29 @@
-import { GetCurrentDayTrackingController } from '@controllers/get-current-day-tracking.controller';
-import { GeyCurrentDayTrackingUseCase } from "@useCases/get-current-day-tracking.use-case";
+import { GetTrackingsByDayController } from '@controllers/get-trackings-by-day.controller';
+import { GetTrackingsByDayUseCase } from "@useCases/get-current-day-tracking.use-case";
 import { DynamoDBTrackingRepository } from "@repositories/dynamodb-tracking.repository";
+import { GetTrackingsByMonthController } from '@controllers/get-trackings-by-month.controller';
+import { GetTrackingsByMonthUseCase } from '@useCases/get-trackings-by-month.use-case';
 
-export const makeGetCurrentDayTrackingController = () => {
-    const useCase = makeGetCurrentDayTrackingUseCase();
+export const makeGetTrackingsByDayController = () => {
+    const useCase = makeGetTrackingsByDayUseCase();
 
-    return new GetCurrentDayTrackingController(useCase);
+    return new GetTrackingsByDayController(useCase);
 };
 
-export const makeGetCurrentDayTrackingUseCase = () => {
+export const makeGetTrackingsByDayUseCase = () => {
     const repository = new DynamoDBTrackingRepository();
 
-    return new GeyCurrentDayTrackingUseCase(repository);
+    return new GetTrackingsByDayUseCase(repository);
+}
+
+export const makeGetTrackingsByMonthController = () => {
+    const useCase = makeGetTrackingsByMonthUseCase();
+
+    return new GetTrackingsByMonthController(useCase);
+};
+
+export const makeGetTrackingsByMonthUseCase = () => {
+    const repository = new DynamoDBTrackingRepository();
+
+    return new GetTrackingsByMonthUseCase(repository);
 }

@@ -1,19 +1,31 @@
 import { TrackingRepository } from '@interfaces/tracking-repository.interface';
 import dayjs from 'dayjs';
 
-export class GetTrackingsByDayUseCase {
+export class GetTrackingsByMonthUseCase {
     constructor(private repository: TrackingRepository) {}
 
     handle = async (username: string, date?: string) => {
-        const currentDate = dayjs().format('YYYY-MM-DD');
-        const { trackings, referenceDate } = await this.repository.getTrackingsByDay(username, date || currentDate);
+        const lastMonth = dayjs().add(-1, 'month').format('YYYY-MM');
+        const result = await this.repository.getTrackingsByMonth(username, date || lastMonth);
 
-        const workedHours = this.calculateWorkedHours(trackings);
+        let monthWorkedMinutes = 0;
+
+        const consolidatedData = result.map((item) => {
+            const { trackings, referenceDate } = item;
+            const dayWorkedMinutes = this.calculateWorkedHours(trackings);
+
+            monthWorkedMinutes += dayWorkedMinutes;
+
+            return {
+                trackings: this.formatTrackings(trackings),
+                dayWorkedHours: this.convertToHours(dayWorkedMinutes),
+                referenceDate: dayjs(referenceDate).format('DD/MM/YYYY'),
+            };
+        });
 
         return {
-            trackings: this.formatTrackings(trackings),
-            workedHours,
-            referenceDate: dayjs(referenceDate).format('DD/MM/YYYY'),
+            monthWorkedHours: this.convertToHours(monthWorkedMinutes),
+            trackingsByDay: consolidatedData,
         };
     };
 
@@ -29,7 +41,7 @@ export class GetTrackingsByDayUseCase {
             }
         });
 
-        return this.convertToHours(totalMinutes);
+        return totalMinutes;
     };
 
     convertToHours = (minutes: number) => {

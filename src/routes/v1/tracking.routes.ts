@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { makeGetCurrentDayTrackingController } from 'src/factories/trackings.factory';
+import { makeGetTrackingsByDayController, makeGetTrackingsByMonthController } from 'src/factories/trackings.factory';
 
 export const trackingRoutes = Router();
 
@@ -7,7 +7,8 @@ export const trackingRoutes = Router();
 // trackingRoutes.post('/', makeCreateOrderController().handle);
 
 // ** GET **
-trackingRoutes.post('/', makeGetCurrentDayTrackingController().handle);
+trackingRoutes.get('/day', makeGetTrackingsByDayController().handle);
+trackingRoutes.get('/month', makeGetTrackingsByMonthController().handle);
 
 // ** PUT **
 // trackingRoutes.put('/', makeUpdateOrderController().handle);

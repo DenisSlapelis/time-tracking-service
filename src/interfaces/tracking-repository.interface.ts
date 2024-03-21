@@ -1,4 +1,4 @@
 export interface TrackingRepository {
-    getCurrentDayTrackings(username: string);
-    getLastMonthTrackings();
+    getTrackingsByDay(username: string, date: string);
+    getTrackingsByMonth(username: string, date: string);
 }
