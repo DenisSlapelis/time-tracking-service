@@ -1,5 +1,5 @@
 import { GetTrackingsByDayController } from '@controllers/get-trackings-by-day.controller';
-import { GetTrackingsByDayUseCase } from "@useCases/get-current-day-tracking.use-case";
+import { GetTrackingsByDayUseCase } from "@useCases/get-trackings-by-day.use-case";
 import { DynamoDBTrackingRepository } from "@repositories/dynamodb-tracking.repository";
 import { GetTrackingsByMonthController } from '@controllers/get-trackings-by-month.controller';
 import { GetTrackingsByMonthUseCase } from '@useCases/get-trackings-by-month.use-case';

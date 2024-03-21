@@ -1,7 +1,7 @@
 import { STATUS_CODE, STATUS_CODE_CAUSE } from '@utils/constants.utils';
 import { Request, Response } from 'express';
 import * as logger from '@logger';
-import { GetTrackingsByDayUseCase } from '@useCases/get-current-day-tracking.use-case';
+import { GetTrackingsByDayUseCase } from '@useCases/get-trackings-by-day.use-case';
 
 export class GetTrackingsByDayController {
     constructor(private useCase: GetTrackingsByDayUseCase) {}
