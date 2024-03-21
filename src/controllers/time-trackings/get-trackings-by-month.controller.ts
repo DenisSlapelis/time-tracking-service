@@ -13,7 +13,7 @@ export class GetTrackingsByMonthController {
             res.status(STATUS_CODE.OK).json(result);
         } catch (error: any) {
             logger.error(error, {
-                origin: 'GetTrackingsByDayController',
+                origin: 'GetTrackingsByMonthController',
                 stack: error.stack,
             });
 
