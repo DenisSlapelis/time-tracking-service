@@ -1,6 +1,6 @@
 import { singleton } from 'tsyringe';
 import { localEnvs } from './local-envs';
-import { asyncEnvs } from '@dependency';
+// import { asyncEnvs } from '@dependency';
 
 @singleton()
 export class Environment {

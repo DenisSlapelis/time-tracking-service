@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 export class GetTrackingsByDayUseCase {
     constructor(private repository: TrackingRepository) {}
 
-    handle = async (username: string, date: any) => {
+    handle = async (username: string, date: any): Promise<any> => {
         const parseDate = dayjs(date).format('YYYY-MM-DD');
         const currentDate = dayjs().format('YYYY-MM-DD');
 
@@ -21,7 +21,8 @@ export class GetTrackingsByDayUseCase {
         };
     };
 
-    calculateWorkedHours = (trackings: Array<any>) => {
+    calculateWorkedHours = (trackings: Array<any>): string => {
+        console.log('== calculateWorkedHours');
         let totalMinutes = 0;
 
         trackings?.forEach((tracking) => {
@@ -36,7 +37,7 @@ export class GetTrackingsByDayUseCase {
         return this.convertToHours(totalMinutes);
     };
 
-    convertToHours = (minutes: number) => {
+    convertToHours = (minutes: number): string => {
         if (minutes == 0) return '';
 
         const restMinutes = minutes % 60;
@@ -47,7 +48,7 @@ export class GetTrackingsByDayUseCase {
         return `${hours}h`;
     };
 
-    formatTrackings = (trackings: Array<any>) => {
+    formatTrackings = (trackings: Array<any>): Array<any> => {
         return trackings?.map((item) => {
             const result = {
                 checkin: dayjs(item.checkin).format('DD/MM/YYYY - HH:mm'),

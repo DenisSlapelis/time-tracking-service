@@ -10,6 +10,7 @@
     "pretty-quick": "npx pretty-quick --staged --verbose --pattern \"**/*.*(js|ts|json)\"",
     "start:dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/index.ts --trace-warnings",
     "test": "jest -i",
+    "test:watch": "jest -i --watch",
     "test:cucumber": "cucumber-js",
     "test:verbose": "jest --verbose -i",
     "test:coverage": "jest --coverage -i"

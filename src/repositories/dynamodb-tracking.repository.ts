@@ -2,7 +2,7 @@ import { dynamodb } from '@env';
 import { TrackingRepository } from '@interfaces/tracking-repository.interface';
 
 export class DynamoDBTrackingRepository implements TrackingRepository {
-    async getTrackingsByDay(username: string, date: string) {
+    async getTrackingsByDay(username: string, date: string): Promise<any> {
         const result = await dynamodb.find({
             table: 'time-tracking-records',
             fields: 'referenceDate, trackings',
@@ -17,7 +17,7 @@ export class DynamoDBTrackingRepository implements TrackingRepository {
         return result?.length ? result[0] : [];
     }
 
-    async getTrackingsByMonth(username: string, date: string) {
+    async getTrackingsByMonth(username: string, date: string): Promise<any> {
         const result = await dynamodb.find({
             table: 'time-tracking-records',
             fields: 'referenceDate, trackings',

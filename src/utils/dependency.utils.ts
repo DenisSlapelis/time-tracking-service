@@ -12,7 +12,7 @@ import { AsyncEnvs } from '../config/envs/async-envs';
 import { ConfigService } from '@services/config.service';
 import { ConfigController } from '@controllers/config.controller';
 import { LoginController } from '@controllers/login.controller';
-import { DynamoDBHelper } from 'src/config/database/dynamodb';
+import { DynamoDBHelper } from '../config/database/dynamodb';
 
 // Singletons
 export const env = container.resolve(Environment);
