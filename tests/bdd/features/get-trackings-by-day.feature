@@ -1,5 +1,5 @@
-Feature: Get time trackings by day
-  All time trackings for a date.
+Feature: Pegar registros de ponto por dia
+  Todos registros de ponto para uma data selecionada.
 
   Scenario: Existem registros de ponto
     Given O funcionário realizou checkin e checkout
