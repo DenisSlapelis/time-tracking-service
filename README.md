@@ -253,7 +253,7 @@ For the editing request, we plan to have three **Lambdas**. These **Lambdas** wi
 
 - Listing of requests for approval: This endpoint can only be accessed by managers, controlled by the user's role. When requesting the list, the system will only return approvals that are from employees the user has permission to view.
 
-- Aprovação da Solicitação: When the manager approves the request, the system will move the record from `edit-requests` to the existing employee's `time-tracking-records` schema. The record will remain in `edit-requests` to monitor approvals and the number of approvals being requested.
+- Request aproval: When the manager approves the request, the system will move the record from `edit-requests` to the existing employee's `time-tracking-records` schema. The record will remain in `edit-requests` to monitor approvals and the number of approvals being requested.
 
 ### Notification
 
@@ -263,7 +263,7 @@ When the day changes, records where the `lastAction` is checkin are understood a
 
 ### Admin
 
-For the administration section, we have created a Lambda function that will create the user and insert them into the users schema, which is used for authentication.
+For the administration section, we have created a **Lambda** function that will create the user and insert them into the users schema, which is used for authentication.
 
 At the same time, it will consolidate the data with the existing data in the time-tracking records.
 

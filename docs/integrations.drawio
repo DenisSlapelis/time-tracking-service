@@ -1,10 +1,10 @@
 <mxfile host="65bd71144e">
     <diagram id="OUbCcWLDV2W5N4Z9F51A" name="Page-1">
-        <mxGraphModel dx="1254" dy="1868" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1363" dy="1868" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="70" value="&lt;b&gt;Desenho da solução&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;container=0;align=left;verticalAlign=top;spacingLeft=5;" parent="1" vertex="1">
+                <mxCell id="70" value="&lt;b&gt;Architectural solution&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;container=0;align=left;verticalAlign=top;spacingLeft=5;" parent="1" vertex="1">
                     <mxGeometry x="-435" y="-1060" width="800" height="860" as="geometry"/>
                 </mxCell>
                 <mxCell id="52" value="&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;Authentication&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;container=0;align=left;verticalAlign=top;spacingLeft=5;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
