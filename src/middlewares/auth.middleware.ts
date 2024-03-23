@@ -27,7 +27,8 @@ export class AuthMiddleware {
 
         req['decodedToken'] = decodedToken;
 
-        req['sysUserId'] = decodedToken['sysUserId'];
+        req['user'] = decodedToken['user'];
+        
 
         return next();
     }

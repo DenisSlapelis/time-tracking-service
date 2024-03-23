@@ -2,7 +2,6 @@ import { DynamoDBClient, PutItemCommand, QueryCommand } from '@aws-sdk/client-dy
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 import { Database } from '@interfaces/database.interface';
 import { singleton } from 'tsyringe';
-import { env } from '@env';
 
 @singleton()
 export class DynamoDBHelper implements Database {
@@ -14,10 +13,10 @@ export class DynamoDBHelper implements Database {
 
     init() {
         this.client = new DynamoDBClient({
-            region: env.getValue('AWS_REGION'),
+            region: 'sa-east-1',
             credentials: {
-                accessKeyId: env.getValue('AWS_ACCESS_KEY_ID'),
-                secretAccessKey: env.getValue('AWS_SECRET_ACCESS_KEY'),
+                accessKeyId: process.env.ACCESS_KEY_ID!,
+                secretAccessKey: process.env.SECRET_ACCESS_KEY!,
             },
         });
     }
