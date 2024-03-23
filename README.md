@@ -214,6 +214,23 @@ npm run start
 
 ![integrations](docs/assets/integrations.svg "Integrations")
 
+The solution consists of three endpoints created as **Lambdas**. Requests will pass through an **API Gateway** for traffic control and routing.
+
+All endpoints also integrate with **CloudWatch** for monitoring API usage.
+
+### Autenticação
+
+The endpoint will authenticate if the provided user is authenticated, returning the access token used in the APIs below.
+
+### Registro de ponto
+
+Responsible for registering user points. The endpoint also controls whether the new point is an entry or exit record.
+
+### Visualização dos registros
+
+It is the API used to return the points of the authenticated user.
+The API allows searching for user points by day and month, as well as sending the report by email with **AWS SES**.
+
 ([Back to Table of contents](#table-of-contents) :arrow_up:)
 
 ---
@@ -224,6 +241,35 @@ npm run start
 
 ![next-steps](docs/assets/functional-requirements-2.svg "next-steps")
 
+For the next steps, we have separated the topics as follows:
+
+### Edição de registros
+
+For the editing request, we plan to have three **Lambdas**. These **Lambdas** will pass through the **API Gateway**.
+
+- Criação da solicitação de edição:  In this endpoint, the user will provide the editing data to be sent for approval. The records will be created in the `edit-requests` schema to isolate the requests from the approved point records.
+
+- Listagem de solicitações para aprovação: This endpoint can only be accessed by managers, controlled by the user's role. When requesting the list, the system will only return approvals that are from employees the user has permission to view.
+
+- Aprovação da Solicitação: When the manager approves the request, the system will move the record from `edit-requests` to the existing employee's `time-tracking-records` schema. The record will remain in `edit-requests` to monitor approvals and the number of approvals being requested.
+
+### Notificações
+
+The notification system will be a **Lambda** that will be executed daily integrated with the **EventBridge**.
+
+When the day changes, records where the `lastAction` is checkin are understood as the user not having performed the check-out time punching. This user will receive an email informing them that the hours record is irregular for that day.
+
+### Administração
+
+For the administration section, we have created a Lambda function that will create the user and insert them into the users schema, which is used for authentication.
+
+At the same time, it will consolidate the data with the existing data in the time-tracking records.
+
+### Relatório
+
+For the second phase of report generation, we will provide an endpoint for manual triggering of reports, allowing managers to receive entries only from those who have permission.
+
+
 ([Back to Table of contents](#table-of-contents) :arrow_up:)
 
 ---
@@ -231,9 +277,38 @@ npm run start
 <a name="database"></a>
 
 ## Database
-We use **DynamoDB**. Schemas:
+
+In this project, we use DynamoDB to persist user data, time entries, and record approvals.
+
+We chose DynamoDB for its high availability and scalability, primarily targeting peak times of record entries.
+
+For security purposes, we utilize VPC to prevent external access to the stored data. Additionally, we employ CloudWatch monitoring to log operations performed on the database.
+
+We have configured DynamoDB to perform daily backups to quickly recover data in case of instance issues.
+
+Schemas:
 
 ![database](docs/assets/database.svg "Database")
+
+In this first delivery, the database will contain the following schemas:
+
+### time-tracking-records
+Responsible for storing user time tracking records.
+
+- The records will contain the following data:
+  - `id`: Point ID. Will be generated daily for each user.
+  - `lastAction`: Last executed action.
+  - `referenceDate`: Point date.
+  - `trackings`: List of entries made on the point date by the user.
+  - `trackings.checkin`: Check-in time.
+  - `trackings.checkout`: Check-out time.
+  - `username`: User ID.
+
+- users
+  - `id`: User code.
+  - `username`: User name.
+  - `registration`: User login.
+  - `pass`: Encrypted password.
 
 ([Back to Table of contents](#table-of-contents) :arrow_up:)
 
