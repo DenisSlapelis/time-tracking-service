@@ -1,6 +1,6 @@
 # time-tracking-service
 
-This is a simple time tracking system designed to help employees to view their worked hours, using Clean Architecture, TDD and BDD concepts and [SonarCloud Integration](#sonar).
+This is a simple time tracking system designed to help employees to view their worked hours, using Clean Architecture, TDD and BDD concepts.
 
 ---
 
@@ -56,21 +56,11 @@ This is a simple time tracking system designed to help employees to view their w
 
 ---
 
-<a name="ripd"></a>
-
-### RIPD
-
-You can find our RIPD (Relatório de Impacto dos Dados Pessoais) [here](https://docs.google.com/document/d/1Mw-uWwYO-TxTC0RA1C6AxOLVbDg2zWRdSmP78c5ysr8/edit?usp=sharing).
-
-([Back to Table of contents](#table-of-contents) :arrow_up:)
-
----
-
 <a name="video"></a>
 
 ### Usage Video
 
-You can find an explanatory video playlist about how the entire application works [here](https://www.youtube.com/watch?v=jbczUd8j2iI&list=PLYCTn1Be4VEZDL9zT4IxJKcw5vP9bnVRk).
+You can find an explanatory video playlist about how the entire application works [here](https://www.youtube.com/playlist?list=PLYCTn1Be4VEbEAlVQlsbQ771a1bjS7NST).
 
 ([Back to Table of contents](#table-of-contents) :arrow_up:)
 
@@ -214,6 +204,25 @@ npm run start
 
 ![integrations](docs/assets/integrations.svg "Integrations")
 
+The solution consists of three endpoints created as **Lambdas**. Requests will pass through an **API Gateway** for traffic control and routing.
+
+All endpoints also integrate with **CloudWatch** for monitoring API usage.
+
+The use of Lambdas is due to the low response time and extremely low cost since only what is used will be charged.
+
+### Authentication
+
+The endpoint will authenticate if the provided user is authenticated, returning the access token used in the APIs below.
+
+### Checkin/Checkout
+
+Responsible for registering user check-in and check-out. The endpoint also controls whether the information is an entry or exit record.
+
+### Viewing Records
+
+It is the API used to return the check-in and check-out time of the authenticated user.
+The API allows searching for user the check-in and check-out time by day and month, as well as sending the report by email with **AWS SES**.
+
 ([Back to Table of contents](#table-of-contents) :arrow_up:)
 
 ---
@@ -224,6 +233,35 @@ npm run start
 
 ![next-steps](docs/assets/functional-requirements-2.svg "next-steps")
 
+For the next steps, we have separated the topics as follows:
+
+### Edit tracking records
+
+For the editing request, we plan to have three **Lambdas**. These **Lambdas** will pass through the **API Gateway**.
+
+- Editing request creation: In this endpoint, the user will provide the editing data to be sent for approval. The records will be created in the `edit-requests` schema to isolate the requests from the approved the check-in and check-out times.
+
+- Listing of requests for approval: This endpoint can only be accessed by managers, controlled by the user's role. When requesting the list, the system will only return approvals that are from employees the user has permission to view.
+
+- Request aproval: When the manager approves the request, the system will move the record from `edit-requests` to the existing employee's `time-tracking-records` schema. The record will remain in `edit-requests` to monitor approvals and the number of approvals being requested.
+
+### Notification
+
+The notification system will be a **Lambda** that will be executed daily integrated with the **EventBridge**.
+
+When the day changes, records where the `lastAction` is checkin are understood as the user not having performed the check-out time punching. This user will receive an email informing them that the hours record is irregular for that day.
+
+### Admin
+
+For the administration section, we have created a **Lambda** function that will create the user and insert them into the users schema, which is used for authentication.
+
+At the same time, it will consolidate the data with the existing data in the time-tracking records.
+
+### Reports
+
+For the second phase of report generation, we will provide an endpoint for manual triggering of reports, allowing managers to receive entries only from those who have permission.
+
+
 ([Back to Table of contents](#table-of-contents) :arrow_up:)
 
 ---
@@ -231,9 +269,38 @@ npm run start
 <a name="database"></a>
 
 ## Database
-We use **DynamoDB**. Schemas:
+
+In this project, we use DynamoDB to persist user data, time entries, and record approvals.
+
+We chose DynamoDB for its high availability and scalability, primarily targeting peak times of record entries.
+
+For security purposes, we utilize VPC to prevent external access to the stored data. Additionally, we employ CloudWatch monitoring to log operations performed on the database.
+
+We have configured DynamoDB to perform daily backups to quickly recover data in case of instance issues.
+
+Schemas:
 
 ![database](docs/assets/database.svg "Database")
+
+In this first delivery, the database will contain the following schemas:
+
+### time-tracking-records
+Responsible for storing user time tracking records.
+
+- The records will contain the following data:
+  - `id`: ID. Will be generated daily for each user.
+  - `lastAction`: Last executed action.
+  - `referenceDate`: the check-in/check-out date.
+  - `trackings`
+  - `trackings.checkin`: Check-in time.
+  - `trackings.checkout`: Check-out time.
+  - `username`: User ID.
+
+- users
+  - `id`: User code.
+  - `username`: User name.
+  - `registration`: User login.
+  - `pass`: Encrypted password.
 
 ([Back to Table of contents](#table-of-contents) :arrow_up:)
 
