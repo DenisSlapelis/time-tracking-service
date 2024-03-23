@@ -56,16 +56,6 @@ This is a simple time tracking system designed to help employees to view their w
 
 ---
 
-<a name="ripd"></a>
-
-### RIPD
-
-You can find our RIPD (Relatório de Impacto dos Dados Pessoais) [here](https://docs.google.com/document/d/1Mw-uWwYO-TxTC0RA1C6AxOLVbDg2zWRdSmP78c5ysr8/edit?usp=sharing).
-
-([Back to Table of contents](#table-of-contents) :arrow_up:)
-
----
-
 <a name="video"></a>
 
 ### Usage Video
