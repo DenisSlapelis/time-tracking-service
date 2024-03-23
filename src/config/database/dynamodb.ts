@@ -13,10 +13,10 @@ export class DynamoDBHelper implements Database {
 
     init() {
         this.client = new DynamoDBClient({
-            region: process.env.AWS_REGION!,
+            region: 'sa-east-1',
             credentials: {
-                accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+                accessKeyId: process.env.ACCESS_KEY_ID!,
+                secretAccessKey: process.env.SECRET_ACCESS_KEY!,
             },
         });
     }
