@@ -1,14 +1,13 @@
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
-import { env } from '@env';
 import { EmailService } from '@interfaces/email-service.interface';
 
 export class AWSEmailService implements EmailService {
     getClient = () => {
         return new SESClient({
-            region: env.getValue('AWS_REGION'),
+            region: 'sa-east-1',
             credentials: {
-                accessKeyId: env.getValue('AWS_ACCESS_KEY_ID'),
-                secretAccessKey: env.getValue('AWS_SECRET_ACCESS_KEY'),
+                accessKeyId: process.env.ACCESS_KEY_ID!,
+                secretAccessKey: process.env.SECRET_ACCESS_KEY!,
             },
         });
     };
