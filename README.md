@@ -60,7 +60,7 @@ This is a simple time tracking system designed to help employees to view their w
 
 ### Usage Video
 
-You can find an explanatory video playlist about how the entire application works [here](https://www.youtube.com/watch?v=jbczUd8j2iI&list=PLYCTn1Be4VEZDL9zT4IxJKcw5vP9bnVRk).
+You can find an explanatory video playlist about how the entire application works [here](https://www.youtube.com/playlist?list=PLYCTn1Be4VEbEAlVQlsbQ771a1bjS7NST).
 
 ([Back to Table of contents](#table-of-contents) :arrow_up:)
 
