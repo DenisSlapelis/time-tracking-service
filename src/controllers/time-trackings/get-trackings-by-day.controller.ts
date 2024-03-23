@@ -9,7 +9,7 @@ export class GetTrackingsByDayController {
     handle = async (req: Request, res: Response) => {
         try {
             const { date } = req.query;
-            const usename = 'wollt';
+            const usename = req['user'];
 
             const result = await this.useCase.handle(usename, date);
 
