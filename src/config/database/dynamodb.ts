@@ -8,7 +8,9 @@ import { env } from '@env';
 export class DynamoDBHelper implements Database {
     private client: DynamoDBClient | undefined;
 
-    constructor() {}
+    constructor() {
+        this.init();
+    }
 
     init() {
         this.client = new DynamoDBClient({
