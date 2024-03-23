@@ -1,6 +1,6 @@
 # time-tracking-service
 
-This is a simple time tracking system designed to help employees to view their worked hours, using Clean Architecture, TDD and BDD concepts and [SonarCloud Integration](#sonar).
+This is a simple time tracking system designed to help employees to view their worked hours, using Clean Architecture, TDD and BDD concepts.
 
 ---
 
