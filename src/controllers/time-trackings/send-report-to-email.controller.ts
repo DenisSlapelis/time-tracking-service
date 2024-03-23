@@ -11,7 +11,7 @@ export class SendReportToEmailController {
             const { date } = req.query;
             const usename = req['user'];
 
-            const result = await this.useCase.handle(usename, date, [process.env.SOURCE_EMAIL!]);
+            const result = await this.useCase.handle(usename, date, ['denis.slapelis.aws.2024@gmail.com']);
 
             res.status(STATUS_CODE.CREATED).json(result);
         } catch (error: any) {
